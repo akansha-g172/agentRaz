@@ -57,6 +57,7 @@ def recommend_products(
 
     for row in result:
         product = dict(row._mapping)
+        product["price"] = float(product["price"])
 
         score = 0
         reasons = []
