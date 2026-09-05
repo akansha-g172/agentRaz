@@ -9,6 +9,9 @@ class Settings(BaseSettings):
     razorpay_key_id: str = ""
     razorpay_key_secret: str = ""
 
+    gemini_api_key: str
+    gemini_model: str = "gemini-2.5-flash"
+
     max_transaction_amount: float = 70000
     max_retry_attempts: int = 1
 
