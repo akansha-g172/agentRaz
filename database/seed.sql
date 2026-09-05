@@ -262,3 +262,37 @@ SELECT
     50000
 FROM merchants
 WHERE name = 'TechNova Electronics';
+
+-- PRODUCT RELATIONSHIPS (upsell / cross-sell / frequently bought)
+
+INSERT INTO product_relationships (
+    product_id,
+    related_product_id,
+    relationship_type,
+    confidence
+)
+SELECT
+    lp.id,
+    rp.id,
+    rel.relationship_type,
+    rel.confidence
+FROM products lp
+JOIN (
+    VALUES
+        ('NovaBook Pro 14', 'SwiftMouse M2', 'frequently_bought', 0.42),
+        ('NovaBook Pro 14', 'USB Hub 7-in-1', 'compatible_with', 0.38),
+        ('NovaBook Pro 14', 'Laptop Sleeve 14', 'cross_sell', 0.31),
+        ('NovaBook Pro 14', 'FastSSD 1TB', 'upsell', 0.27),
+        ('CodeMaster X15', 'Precision Mouse MX', 'frequently_bought', 0.45),
+        ('CodeMaster X15', 'USB Hub 7-in-1', 'compatible_with', 0.36),
+        ('CodeMaster X15', 'Laptop Sleeve 14', 'cross_sell', 0.29),
+        ('DevBook Air', 'SwiftMouse M2', 'frequently_bought', 0.40),
+        ('DevBook Air', 'Laptop Sleeve 14', 'cross_sell', 0.35),
+        ('DevBook Air', 'USB Hub 7-in-1', 'compatible_with', 0.33),
+        ('UltraDev 16', 'VisionMonitor 27', 'upsell', 0.30),
+        ('UltraDev 16', 'Precision Mouse MX', 'frequently_bought', 0.28)
+) AS rel(laptop_name, related_name, relationship_type, confidence)
+    ON lp.name = rel.laptop_name
+JOIN products rp ON rp.name = rel.related_name
+WHERE lp.category = 'Laptop'
+ON CONFLICT (product_id, related_product_id, relationship_type) DO NOTHING;

@@ -6,6 +6,8 @@ from app.api.routes.buyers import router as buyers_router
 from app.api.routes.merchants import router as merchants_router
 from app.api.routes.recommendations import router as recommendations_router
 from app.api.routes.buyer_agent import router as buyer_agent_router
+from app.api.routes.merchant_agent import router as merchant_agent_router
+from app.api.routes.cart import router as cart_router
 
 app = FastAPI(
     title=settings.app_name,
@@ -17,6 +19,8 @@ app.include_router(buyers_router)
 app.include_router(merchants_router)
 app.include_router(recommendations_router)
 app.include_router(buyer_agent_router)
+app.include_router(merchant_agent_router)
+app.include_router(cart_router)
 
 @app.get("/")
 def root():
