@@ -34,7 +34,7 @@ def get_recommendations(
         max_price=max_price,
         preferred_brands=preferred_brands,
         use_case=use_case,
-        limit=limit
+        limit=limit,
     )
 
     return {
