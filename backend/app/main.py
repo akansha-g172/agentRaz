@@ -8,6 +8,10 @@ from app.api.routes.recommendations import router as recommendations_router
 from app.api.routes.buyer_agent import router as buyer_agent_router
 from app.api.routes.merchant_agent import router as merchant_agent_router
 from app.api.routes.cart import router as cart_router
+from app.api.routes.orders import router as orders_router
+from app.api.routes.payments import router as payments_router, policy_router
+from app.api.routes.webhooks import router as webhooks_router
+from app.api.routes.audit import router as audit_router
 
 app = FastAPI(
     title=settings.app_name,
@@ -21,6 +25,11 @@ app.include_router(recommendations_router)
 app.include_router(buyer_agent_router)
 app.include_router(merchant_agent_router)
 app.include_router(cart_router)
+app.include_router(orders_router)
+app.include_router(payments_router)
+app.include_router(policy_router)
+app.include_router(webhooks_router)
+app.include_router(audit_router)
 
 @app.get("/")
 def root():

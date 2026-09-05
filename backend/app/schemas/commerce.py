@@ -70,3 +70,27 @@ class CartValidationResult(BaseModel):
     subtotal: float
     currency: str = "INR"
     errors: list[str] = Field(default_factory=list)
+
+
+class PolicyCheckRequest(BaseModel):
+    items: list[CartItemInput]
+    buyer_id: str | None = None
+    merchant_id: str | None = None
+    includes_upsell: bool = False
+
+
+class CreateOrderRequest(BaseModel):
+    items: list[CartItemInput]
+    buyer_id: str | None = None
+    session_id: str | None = None
+
+
+class InitiatePaymentRequest(BaseModel):
+    session_id: str | None = None
+
+
+class VerifyPaymentRequest(BaseModel):
+    razorpay_order_id: str
+    razorpay_payment_id: str
+    razorpay_signature: str
+    session_id: str | None = None
